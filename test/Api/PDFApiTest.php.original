@@ -306,6 +306,18 @@ class PDFApiTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test case for getFullTemplate
+     *
+     * Fetch the full template attributes.
+     *
+     */
+    public function testGetFullTemplate()
+    {
+      $template_id = tpl_000000000000000001; // string | 
+      $result = $apiInstance->getFullTemplate($template_id);
+    }
+
+    /**
      * Test case for getPresignUrl
      *
      * Get a presigned URL so that you can upload a file to our AWS S3 bucket.
@@ -345,12 +357,12 @@ class PDFApiTest extends \PHPUnit_Framework_TestCase
     /**
      * Test case for getTemplate
      *
-     * Get a single template.
+     * Check the status of an uploaded template.
      *
      */
     public function testGetTemplate()
     {
-      $template_id = tpl_000000000000000011; // string | 
+      $template_id = tpl_000000000000000001; // string | 
       $result = $apiInstance->getTemplate($template_id);
     }
 
@@ -376,6 +388,41 @@ class PDFApiTest extends \PHPUnit_Framework_TestCase
     {
       $parent_folder_id = fld_000000000000000002; // string | Filter By Folder Id
       $result = $apiInstance->listFolders($parent_folder_id);
+    }
+
+    /**
+     * Test case for listSubmissions
+     *
+     * List all submissions.
+     *
+     */
+    public function testListSubmissions()
+    {
+      $cursor = sub_list_000012; // string | 
+      $limit = 3; // float | 
+      $created_after = 2019-01-01T09:00:00-05:00; // string | 
+      $created_before = 2020-01-01T09:00:00-05:00; // string | 
+      $type = test; // string | 
+      $include_data = true; // bool | 
+      $result = $apiInstance->listSubmissions($cursor, $limit, $created_after, $created_before, $type, $include_data);
+    }
+
+    /**
+     * Test case for listSubmissions_0
+     *
+     * List all submissions for a given template.
+     *
+     */
+    public function testListSubmissions0()
+    {
+      $template_id = tpl_000000000000000002; // string | 
+      $cursor = 'cursor_example'; // string | 
+      $limit = 3.4; // float | 
+      $created_after = 'created_after_example'; // string | 
+      $created_before = 'created_before_example'; // string | 
+      $type = 'type_example'; // string | 
+      $include_data = true; // bool | 
+      $result = $apiInstance->listSubmissions_0($template_id, $cursor, $limit, $created_after, $created_before, $type, $include_data);
     }
 
     /**

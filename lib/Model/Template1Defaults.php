@@ -1,6 +1,6 @@
 <?php
 /**
- * CombinedSubmissionData
+ * Template1Defaults
  *
  * PHP version 5
  *
@@ -33,14 +33,14 @@ use \ArrayAccess;
 use \DocSpring\ObjectSerializer;
 
 /**
- * CombinedSubmissionData Class Doc Comment
+ * Template1Defaults Class Doc Comment
  *
  * @category Class
  * @package  DocSpring
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class CombinedSubmissionData implements ModelInterface, ArrayAccess
+class Template1Defaults implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $openAPIModelName = 'combined_submission_data';
+    protected static $openAPIModelName = 'template_1_defaults';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPITypes = [
-        'expires_in' => 'int',
-        'metadata' => 'object',
-        'password' => 'string',
-        'submission_ids' => 'string[]',
-        'test' => 'bool'
+        'color' => 'string',
+        'font_size' => 'float',
+        'typeface' => 'string'
     ];
 
     /**
@@ -70,11 +68,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPIFormats = [
-        'expires_in' => null,
-        'metadata' => null,
-        'password' => null,
-        'submission_ids' => null,
-        'test' => null
+        'color' => null,
+        'font_size' => null,
+        'typeface' => null
     ];
 
     /**
@@ -104,11 +100,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'expires_in' => 'expires_in',
-        'metadata' => 'metadata',
-        'password' => 'password',
-        'submission_ids' => 'submission_ids',
-        'test' => 'test'
+        'color' => 'color',
+        'font_size' => 'fontSize',
+        'typeface' => 'typeface'
     ];
 
     /**
@@ -117,11 +111,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'expires_in' => 'setExpiresIn',
-        'metadata' => 'setMetadata',
-        'password' => 'setPassword',
-        'submission_ids' => 'setSubmissionIds',
-        'test' => 'setTest'
+        'color' => 'setColor',
+        'font_size' => 'setFontSize',
+        'typeface' => 'setTypeface'
     ];
 
     /**
@@ -130,11 +122,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'expires_in' => 'getExpiresIn',
-        'metadata' => 'getMetadata',
-        'password' => 'getPassword',
-        'submission_ids' => 'getSubmissionIds',
-        'test' => 'getTest'
+        'color' => 'getColor',
+        'font_size' => 'getFontSize',
+        'typeface' => 'getTypeface'
     ];
 
     /**
@@ -197,11 +187,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['expires_in'] = isset($data['expires_in']) ? $data['expires_in'] : null;
-        $this->container['metadata'] = isset($data['metadata']) ? $data['metadata'] : null;
-        $this->container['password'] = isset($data['password']) ? $data['password'] : null;
-        $this->container['submission_ids'] = isset($data['submission_ids']) ? $data['submission_ids'] : null;
-        $this->container['test'] = isset($data['test']) ? $data['test'] : null;
+        $this->container['color'] = isset($data['color']) ? $data['color'] : null;
+        $this->container['font_size'] = isset($data['font_size']) ? $data['font_size'] : null;
+        $this->container['typeface'] = isset($data['typeface']) ? $data['typeface'] : null;
     }
 
     /**
@@ -213,9 +201,6 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['submission_ids'] === null) {
-            $invalidProperties[] = "'submission_ids' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -232,121 +217,73 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets expires_in
-     *
-     * @return int|null
-     */
-    public function getExpiresIn()
-    {
-        return $this->container['expires_in'];
-    }
-
-    /**
-     * Sets expires_in
-     *
-     * @param int|null $expires_in expires_in
-     *
-     * @return $this
-     */
-    public function setExpiresIn($expires_in)
-    {
-        $this->container['expires_in'] = $expires_in;
-
-        return $this;
-    }
-
-    /**
-     * Gets metadata
-     *
-     * @return object|null
-     */
-    public function getMetadata()
-    {
-        return $this->container['metadata'];
-    }
-
-    /**
-     * Sets metadata
-     *
-     * @param object|null $metadata metadata
-     *
-     * @return $this
-     */
-    public function setMetadata($metadata)
-    {
-        $this->container['metadata'] = $metadata;
-
-        return $this;
-    }
-
-    /**
-     * Gets password
+     * Gets color
      *
      * @return string|null
      */
-    public function getPassword()
+    public function getColor()
     {
-        return $this->container['password'];
+        return $this->container['color'];
     }
 
     /**
-     * Sets password
+     * Sets color
      *
-     * @param string|null $password password
+     * @param string|null $color color
      *
      * @return $this
      */
-    public function setPassword($password)
+    public function setColor($color)
     {
-        $this->container['password'] = $password;
+        $this->container['color'] = $color;
 
         return $this;
     }
 
     /**
-     * Gets submission_ids
+     * Gets font_size
      *
-     * @return string[]
+     * @return float|null
      */
-    public function getSubmissionIds()
+    public function getFontSize()
     {
-        return $this->container['submission_ids'];
+        return $this->container['font_size'];
     }
 
     /**
-     * Sets submission_ids
+     * Sets font_size
      *
-     * @param string[] $submission_ids submission_ids
+     * @param float|null $font_size font_size
      *
      * @return $this
      */
-    public function setSubmissionIds($submission_ids)
+    public function setFontSize($font_size)
     {
-        $this->container['submission_ids'] = $submission_ids;
+        $this->container['font_size'] = $font_size;
 
         return $this;
     }
 
     /**
-     * Gets test
+     * Gets typeface
      *
-     * @return bool|null
+     * @return string|null
      */
-    public function getTest()
+    public function getTypeface()
     {
-        return $this->container['test'];
+        return $this->container['typeface'];
     }
 
     /**
-     * Sets test
+     * Sets typeface
      *
-     * @param bool|null $test test
+     * @param string|null $typeface typeface
      *
      * @return $this
      */
-    public function setTest($test)
+    public function setTypeface($typeface)
     {
-        $this->container['test'] = $test;
+        $this->container['typeface'] = $typeface;
 
         return $this;
     }

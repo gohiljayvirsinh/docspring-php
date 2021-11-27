@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **field_overrides** | **object** |  | [optional] 
 **html** | **string** |  | [optional] 
 **metadata** | **object** |  | [optional] 
+**password** | **string** |  | [optional] 
 **test** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

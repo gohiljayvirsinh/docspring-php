@@ -60,6 +60,7 @@ class CombinePdfsData implements ModelInterface, ArrayAccess
         'delete_custom_files' => 'bool',
         'expires_in' => 'int',
         'metadata' => 'object',
+        'password' => 'string',
         'source_pdfs' => 'object[]',
         'test' => 'bool'
     ];
@@ -73,6 +74,7 @@ class CombinePdfsData implements ModelInterface, ArrayAccess
         'delete_custom_files' => null,
         'expires_in' => null,
         'metadata' => null,
+        'password' => null,
         'source_pdfs' => null,
         'test' => null
     ];
@@ -107,6 +109,7 @@ class CombinePdfsData implements ModelInterface, ArrayAccess
         'delete_custom_files' => 'delete_custom_files',
         'expires_in' => 'expires_in',
         'metadata' => 'metadata',
+        'password' => 'password',
         'source_pdfs' => 'source_pdfs',
         'test' => 'test'
     ];
@@ -120,6 +123,7 @@ class CombinePdfsData implements ModelInterface, ArrayAccess
         'delete_custom_files' => 'setDeleteCustomFiles',
         'expires_in' => 'setExpiresIn',
         'metadata' => 'setMetadata',
+        'password' => 'setPassword',
         'source_pdfs' => 'setSourcePdfs',
         'test' => 'setTest'
     ];
@@ -133,6 +137,7 @@ class CombinePdfsData implements ModelInterface, ArrayAccess
         'delete_custom_files' => 'getDeleteCustomFiles',
         'expires_in' => 'getExpiresIn',
         'metadata' => 'getMetadata',
+        'password' => 'getPassword',
         'source_pdfs' => 'getSourcePdfs',
         'test' => 'getTest'
     ];
@@ -200,6 +205,7 @@ class CombinePdfsData implements ModelInterface, ArrayAccess
         $this->container['delete_custom_files'] = isset($data['delete_custom_files']) ? $data['delete_custom_files'] : null;
         $this->container['expires_in'] = isset($data['expires_in']) ? $data['expires_in'] : null;
         $this->container['metadata'] = isset($data['metadata']) ? $data['metadata'] : null;
+        $this->container['password'] = isset($data['password']) ? $data['password'] : null;
         $this->container['source_pdfs'] = isset($data['source_pdfs']) ? $data['source_pdfs'] : null;
         $this->container['test'] = isset($data['test']) ? $data['test'] : null;
     }
@@ -299,6 +305,30 @@ class CombinePdfsData implements ModelInterface, ArrayAccess
     public function setMetadata($metadata)
     {
         $this->container['metadata'] = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Gets password
+     *
+     * @return string|null
+     */
+    public function getPassword()
+    {
+        return $this->container['password'];
+    }
+
+    /**
+     * Sets password
+     *
+     * @param string|null $password password
+     *
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->container['password'] = $password;
 
         return $this;
     }

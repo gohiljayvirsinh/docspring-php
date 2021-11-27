@@ -1,6 +1,6 @@
 <?php
 /**
- * CombinePdfsDataTest
+ * ListSubmissionsResponseTest
  *
  * PHP version 5
  *
@@ -30,15 +30,15 @@
 namespace DocSpring;
 
 /**
- * CombinePdfsDataTest Class Doc Comment
+ * ListSubmissionsResponseTest Class Doc Comment
  *
  * @category    Class
- * @description CombinePdfsData
+ * @description ListSubmissionsResponse
  * @package     DocSpring
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class CombinePdfsDataTest extends \PHPUnit_Framework_TestCase
+class ListSubmissionsResponseTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -70,51 +70,30 @@ class CombinePdfsDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "CombinePdfsData"
+     * Test "ListSubmissionsResponse"
      */
-    public function testCombinePdfsData()
+    public function testListSubmissionsResponse()
     {
     }
 
     /**
-     * Test attribute "delete_custom_files"
+     * Test attribute "next_cursor"
      */
-    public function testPropertyDeleteCustomFiles()
+    public function testPropertyNextCursor()
     {
     }
 
     /**
-     * Test attribute "expires_in"
+     * Test attribute "submissions"
      */
-    public function testPropertyExpiresIn()
+    public function testPropertySubmissions()
     {
     }
 
     /**
-     * Test attribute "metadata"
+     * Test attribute "limit"
      */
-    public function testPropertyMetadata()
-    {
-    }
-
-    /**
-     * Test attribute "password"
-     */
-    public function testPropertyPassword()
-    {
-    }
-
-    /**
-     * Test attribute "source_pdfs"
-     */
-    public function testPropertySourcePdfs()
-    {
-    }
-
-    /**
-     * Test attribute "test"
-     */
-    public function testPropertyTest()
+    public function testPropertyLimit()
     {
     }
 }

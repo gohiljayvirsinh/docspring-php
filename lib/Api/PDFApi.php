@@ -5858,6 +5858,322 @@ class PDFApi
     }
 
     /**
+     * Operation getFullTemplate
+     *
+     * Fetch the full template attributes
+     *
+     * @param  string $template_id template_id (required)
+     *
+     * @throws \DocSpring\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \DocSpring\Model\Template1|\DocSpring\Model\AuthenticationError|\DocSpring\Model\Error
+     */
+    public function getFullTemplate($template_id)
+    {
+        list($response) = $this->getFullTemplateWithHttpInfo($template_id);
+        return $response;
+    }
+
+    /**
+     * Operation getFullTemplateWithHttpInfo
+     *
+     * Fetch the full template attributes
+     *
+     * @param  string $template_id (required)
+     *
+     * @throws \DocSpring\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \DocSpring\Model\Template1|\DocSpring\Model\AuthenticationError|\DocSpring\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFullTemplateWithHttpInfo($template_id)
+    {
+        $request = $this->getFullTemplateRequest($template_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            switch($statusCode) {
+                case 200:
+                    if ('\DocSpring\Model\Template1' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\Template1', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\DocSpring\Model\AuthenticationError' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\AuthenticationError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\DocSpring\Model\Error' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\DocSpring\Model\Template1';
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\Template1',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFullTemplateAsync
+     *
+     * Fetch the full template attributes
+     *
+     * @param  string $template_id (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFullTemplateAsync($template_id)
+    {
+        return $this->getFullTemplateAsyncWithHttpInfo($template_id)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFullTemplateAsyncWithHttpInfo
+     *
+     * Fetch the full template attributes
+     *
+     * @param  string $template_id (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFullTemplateAsyncWithHttpInfo($template_id)
+    {
+        $returnType = '\DocSpring\Model\Template1';
+        $request = $this->getFullTemplateRequest($template_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFullTemplate'
+     *
+     * @param  string $template_id (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getFullTemplateRequest($template_id)
+    {
+        // verify the required parameter 'template_id' is set
+        if ($template_id === null || (is_array($template_id) && count($template_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $template_id when calling getFullTemplate'
+            );
+        }
+
+        $resourcePath = '/templates/{template_id}?full=true';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($template_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'template_id' . '}',
+                ObjectSerializer::toPathValue($template_id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($_tempBody));
+            } else {
+                $httpBody = $_tempBody;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getPresignUrl
      *
      * Get a presigned URL so that you can upload a file to our AWS S3 bucket
@@ -6787,7 +7103,7 @@ class PDFApi
     /**
      * Operation getTemplate
      *
-     * Get a single template
+     * Check the status of an uploaded template
      *
      * @param  string $template_id template_id (required)
      *
@@ -6804,7 +7120,7 @@ class PDFApi
     /**
      * Operation getTemplateWithHttpInfo
      *
-     * Get a single template
+     * Check the status of an uploaded template
      *
      * @param  string $template_id (required)
      *
@@ -6932,7 +7248,7 @@ class PDFApi
     /**
      * Operation getTemplateAsync
      *
-     * Get a single template
+     * Check the status of an uploaded template
      *
      * @param  string $template_id (required)
      *
@@ -6952,7 +7268,7 @@ class PDFApi
     /**
      * Operation getTemplateAsyncWithHttpInfo
      *
-     * Get a single template
+     * Check the status of an uploaded template
      *
      * @param  string $template_id (required)
      *
@@ -7633,6 +7949,707 @@ class PDFApi
             $queryParams['parent_folder_id'] = ObjectSerializer::toQueryValue($parent_folder_id);
         }
 
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($_tempBody));
+            } else {
+                $httpBody = $_tempBody;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listSubmissions
+     *
+     * List all submissions
+     *
+     * @param  string $cursor cursor (optional)
+     * @param  float $limit limit (optional)
+     * @param  string $created_after created_after (optional)
+     * @param  string $created_before created_before (optional)
+     * @param  string $type type (optional)
+     * @param  bool $include_data include_data (optional)
+     *
+     * @throws \DocSpring\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \DocSpring\Model\ListSubmissionsResponse|\DocSpring\Model\Error|\DocSpring\Model\AuthenticationError
+     */
+    public function listSubmissions($cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        list($response) = $this->listSubmissionsWithHttpInfo($cursor, $limit, $created_after, $created_before, $type, $include_data);
+        return $response;
+    }
+
+    /**
+     * Operation listSubmissionsWithHttpInfo
+     *
+     * List all submissions
+     *
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \DocSpring\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \DocSpring\Model\ListSubmissionsResponse|\DocSpring\Model\Error|\DocSpring\Model\AuthenticationError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listSubmissionsWithHttpInfo($cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        $request = $this->listSubmissionsRequest($cursor, $limit, $created_after, $created_before, $type, $include_data);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            switch($statusCode) {
+                case 200:
+                    if ('\DocSpring\Model\ListSubmissionsResponse' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\ListSubmissionsResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 400:
+                    if ('\DocSpring\Model\Error' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 401:
+                    if ('\DocSpring\Model\AuthenticationError' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\AuthenticationError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\DocSpring\Model\ListSubmissionsResponse';
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\ListSubmissionsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listSubmissionsAsync
+     *
+     * List all submissions
+     *
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listSubmissionsAsync($cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        return $this->listSubmissionsAsyncWithHttpInfo($cursor, $limit, $created_after, $created_before, $type, $include_data)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listSubmissionsAsyncWithHttpInfo
+     *
+     * List all submissions
+     *
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listSubmissionsAsyncWithHttpInfo($cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        $returnType = '\DocSpring\Model\ListSubmissionsResponse';
+        $request = $this->listSubmissionsRequest($cursor, $limit, $created_after, $created_before, $type, $include_data);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listSubmissions'
+     *
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function listSubmissionsRequest($cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+
+        $resourcePath = '/submissions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($cursor !== null) {
+            $queryParams['cursor'] = ObjectSerializer::toQueryValue($cursor);
+        }
+        // query params
+        if ($limit !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($limit);
+        }
+        // query params
+        if ($created_after !== null) {
+            $queryParams['created_after'] = ObjectSerializer::toQueryValue($created_after);
+        }
+        // query params
+        if ($created_before !== null) {
+            $queryParams['created_before'] = ObjectSerializer::toQueryValue($created_before);
+        }
+        // query params
+        if ($type !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
+        }
+        // query params
+        if ($include_data !== null) {
+            $queryParams['include_data'] = ObjectSerializer::toQueryValue($include_data);
+        }
+
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            if ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode(ObjectSerializer::sanitizeForSerialization($_tempBody));
+            } else {
+                $httpBody = $_tempBody;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listSubmissions_0
+     *
+     * List all submissions for a given template
+     *
+     * @param  string $template_id template_id (required)
+     * @param  string $cursor cursor (optional)
+     * @param  float $limit limit (optional)
+     * @param  string $created_after created_after (optional)
+     * @param  string $created_before created_before (optional)
+     * @param  string $type type (optional)
+     * @param  bool $include_data include_data (optional)
+     *
+     * @throws \DocSpring\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \DocSpring\Model\ListSubmissionsResponse|\DocSpring\Model\Error
+     */
+    public function listSubmissions_0($template_id, $cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        list($response) = $this->listSubmissions_0WithHttpInfo($template_id, $cursor, $limit, $created_after, $created_before, $type, $include_data);
+        return $response;
+    }
+
+    /**
+     * Operation listSubmissions_0WithHttpInfo
+     *
+     * List all submissions for a given template
+     *
+     * @param  string $template_id (required)
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \DocSpring\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \DocSpring\Model\ListSubmissionsResponse|\DocSpring\Model\Error, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listSubmissions_0WithHttpInfo($template_id, $cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        $request = $this->listSubmissions_0Request($template_id, $cursor, $limit, $created_after, $created_before, $type, $include_data);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            switch($statusCode) {
+                case 200:
+                    if ('\DocSpring\Model\ListSubmissionsResponse' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\ListSubmissionsResponse', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\DocSpring\Model\Error' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\DocSpring\Model\Error', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\DocSpring\Model\ListSubmissionsResponse';
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\ListSubmissionsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\DocSpring\Model\Error',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listSubmissions_0Async
+     *
+     * List all submissions for a given template
+     *
+     * @param  string $template_id (required)
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listSubmissions_0Async($template_id, $cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        return $this->listSubmissions_0AsyncWithHttpInfo($template_id, $cursor, $limit, $created_after, $created_before, $type, $include_data)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listSubmissions_0AsyncWithHttpInfo
+     *
+     * List all submissions for a given template
+     *
+     * @param  string $template_id (required)
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listSubmissions_0AsyncWithHttpInfo($template_id, $cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        $returnType = '\DocSpring\Model\ListSubmissionsResponse';
+        $request = $this->listSubmissions_0Request($template_id, $cursor, $limit, $created_after, $created_before, $type, $include_data);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listSubmissions_0'
+     *
+     * @param  string $template_id (required)
+     * @param  string $cursor (optional)
+     * @param  float $limit (optional)
+     * @param  string $created_after (optional)
+     * @param  string $created_before (optional)
+     * @param  string $type (optional)
+     * @param  bool $include_data (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function listSubmissions_0Request($template_id, $cursor = null, $limit = null, $created_after = null, $created_before = null, $type = null, $include_data = null)
+    {
+        // verify the required parameter 'template_id' is set
+        if ($template_id === null || (is_array($template_id) && count($template_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $template_id when calling listSubmissions_0'
+            );
+        }
+
+        $resourcePath = '/templates/{template_id}/submissions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($cursor !== null) {
+            $queryParams['cursor'] = ObjectSerializer::toQueryValue($cursor);
+        }
+        // query params
+        if ($limit !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($limit);
+        }
+        // query params
+        if ($created_after !== null) {
+            $queryParams['created_after'] = ObjectSerializer::toQueryValue($created_after);
+        }
+        // query params
+        if ($created_before !== null) {
+            $queryParams['created_before'] = ObjectSerializer::toQueryValue($created_before);
+        }
+        // query params
+        if ($type !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
+        }
+        // query params
+        if ($include_data !== null) {
+            $queryParams['include_data'] = ObjectSerializer::toQueryValue($include_data);
+        }
+
+        // path params
+        if ($template_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'template_id' . '}',
+                ObjectSerializer::toPathValue($template_id),
+                $resourcePath
+            );
+        }
 
         // body params
         $_tempBody = null;

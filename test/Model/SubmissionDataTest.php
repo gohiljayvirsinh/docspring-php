@@ -119,6 +119,13 @@ class SubmissionDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "password"
+     */
+    public function testPropertyPassword()
+    {
+    }
+
+    /**
      * Test attribute "test"
      */
     public function testPropertyTest()

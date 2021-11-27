@@ -1,13 +1,11 @@
-# CombinedSubmissionData
+# Template1Defaults
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**expires_in** | **int** |  | [optional] 
-**metadata** | **object** |  | [optional] 
-**password** | **string** |  | [optional] 
-**submission_ids** | **string[]** |  | 
-**test** | **bool** |  | [optional] 
+**color** | **string** |  | [optional] 
+**font_size** | **float** |  | [optional] 
+**typeface** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

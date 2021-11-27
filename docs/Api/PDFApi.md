@@ -22,12 +22,15 @@ Method | HTTP request | Description
 [**generatePDF**](PDFApi.md#generatePDF) | **POST** /templates/{template_id}/submissions | Generates a new PDF
 [**getCombinedSubmission**](PDFApi.md#getCombinedSubmission) | **GET** /combined_submissions/{combined_submission_id} | Check the status of a combined submission (merged PDFs)
 [**getDataRequest**](PDFApi.md#getDataRequest) | **GET** /data_requests/{data_request_id} | Look up a submission data request
+[**getFullTemplate**](PDFApi.md#getFullTemplate) | **GET** /templates/{template_id}?full&#x3D;true | Fetch the full template attributes
 [**getPresignUrl**](PDFApi.md#getPresignUrl) | **GET** /uploads/presign | Get a presigned URL so that you can upload a file to our AWS S3 bucket
 [**getSubmission**](PDFApi.md#getSubmission) | **GET** /submissions/{submission_id} | Check the status of a PDF
 [**getSubmissionBatch**](PDFApi.md#getSubmissionBatch) | **GET** /submissions/batches/{submission_batch_id} | Check the status of a submission batch job
-[**getTemplate**](PDFApi.md#getTemplate) | **GET** /templates/{template_id} | Get a single template
+[**getTemplate**](PDFApi.md#getTemplate) | **GET** /templates/{template_id} | Check the status of an uploaded template
 [**getTemplateSchema**](PDFApi.md#getTemplateSchema) | **GET** /templates/{template_id}/schema | Fetch the JSON schema for a template
 [**listFolders**](PDFApi.md#listFolders) | **GET** /folders/ | Get a list of all folders
+[**listSubmissions**](PDFApi.md#listSubmissions) | **GET** /submissions | List all submissions
+[**listSubmissions_0**](PDFApi.md#listSubmissions_0) | **GET** /templates/{template_id}/submissions | List all submissions for a given template
 [**listTemplates**](PDFApi.md#listTemplates) | **GET** /templates | Get a list of all templates
 [**moveFolderToFolder**](PDFApi.md#moveFolderToFolder) | **POST** /folders/{folder_id}/move | Move a folder
 [**moveTemplateToFolder**](PDFApi.md#moveTemplateToFolder) | **POST** /templates/{template_id}/move | Move Template to folder
@@ -1021,6 +1024,60 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getFullTemplate**
+> \DocSpring\Model\Template1 getFullTemplate($template_id)
+
+Fetch the full template attributes
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure HTTP basic authorization: api_token_basic
+$config = DocSpring\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new DocSpring\Api\PDFApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$template_id = tpl_000000000000000001; // string | 
+
+try {
+    $result = $apiInstance->getFullTemplate($template_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PDFApi->getFullTemplate: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **template_id** | **string**|  |
+
+### Return type
+
+[**\DocSpring\Model\Template1**](../Model/Template1.md)
+
+### Authorization
+
+[api_token_basic](../../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getPresignUrl**
 > map[string,object] getPresignUrl()
 
@@ -1186,7 +1243,7 @@ Name | Type | Description  | Notes
 # **getTemplate**
 > \DocSpring\Model\Template getTemplate($template_id)
 
-Get a single template
+Check the status of an uploaded template
 
 ### Example
 ```php
@@ -1205,7 +1262,7 @@ $apiInstance = new DocSpring\Api\PDFApi(
     new GuzzleHttp\Client(),
     $config
 );
-$template_id = tpl_000000000000000011; // string | 
+$template_id = tpl_000000000000000001; // string | 
 
 try {
     $result = $apiInstance->getTemplate($template_id);
@@ -1333,6 +1390,136 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\DocSpring\Model\Folder[]**](../Model/Folder.md)
+
+### Authorization
+
+[api_token_basic](../../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listSubmissions**
+> \DocSpring\Model\ListSubmissionsResponse listSubmissions($cursor, $limit, $created_after, $created_before, $type, $include_data)
+
+List all submissions
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure HTTP basic authorization: api_token_basic
+$config = DocSpring\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new DocSpring\Api\PDFApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$cursor = sub_list_000012; // string | 
+$limit = 3; // float | 
+$created_after = 2019-01-01T09:00:00-05:00; // string | 
+$created_before = 2020-01-01T09:00:00-05:00; // string | 
+$type = test; // string | 
+$include_data = true; // bool | 
+
+try {
+    $result = $apiInstance->listSubmissions($cursor, $limit, $created_after, $created_before, $type, $include_data);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PDFApi->listSubmissions: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cursor** | **string**|  | [optional]
+ **limit** | **float**|  | [optional]
+ **created_after** | **string**|  | [optional]
+ **created_before** | **string**|  | [optional]
+ **type** | **string**|  | [optional]
+ **include_data** | **bool**|  | [optional]
+
+### Return type
+
+[**\DocSpring\Model\ListSubmissionsResponse**](../Model/ListSubmissionsResponse.md)
+
+### Authorization
+
+[api_token_basic](../../README.md#api_token_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listSubmissions_0**
+> \DocSpring\Model\ListSubmissionsResponse listSubmissions_0($template_id, $cursor, $limit, $created_after, $created_before, $type, $include_data)
+
+List all submissions for a given template
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure HTTP basic authorization: api_token_basic
+$config = DocSpring\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new DocSpring\Api\PDFApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$template_id = tpl_000000000000000002; // string | 
+$cursor = 'cursor_example'; // string | 
+$limit = 3.4; // float | 
+$created_after = 'created_after_example'; // string | 
+$created_before = 'created_before_example'; // string | 
+$type = 'type_example'; // string | 
+$include_data = true; // bool | 
+
+try {
+    $result = $apiInstance->listSubmissions_0($template_id, $cursor, $limit, $created_after, $created_before, $type, $include_data);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PDFApi->listSubmissions_0: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **template_id** | **string**|  |
+ **cursor** | **string**|  | [optional]
+ **limit** | **float**|  | [optional]
+ **created_after** | **string**|  | [optional]
+ **created_before** | **string**|  | [optional]
+ **type** | **string**|  | [optional]
+ **include_data** | **bool**|  | [optional]
+
+### Return type
+
+[**\DocSpring\Model\ListSubmissionsResponse**](../Model/ListSubmissionsResponse.md)
 
 ### Authorization
 

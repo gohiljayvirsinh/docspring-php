@@ -58,6 +58,7 @@ class CombinedSubmission implements ModelInterface, ArrayAccess
       */
     protected static $openAPITypes = [
         'metadata' => 'object',
+        'password' => 'string',
         'expired' => 'bool',
         'expires_at' => 'string',
         'source_pdfs' => 'object[]',
@@ -76,6 +77,7 @@ class CombinedSubmission implements ModelInterface, ArrayAccess
       */
     protected static $openAPIFormats = [
         'metadata' => null,
+        'password' => null,
         'expired' => null,
         'expires_at' => null,
         'source_pdfs' => null,
@@ -115,6 +117,7 @@ class CombinedSubmission implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'metadata' => 'metadata',
+        'password' => 'password',
         'expired' => 'expired',
         'expires_at' => 'expires_at',
         'source_pdfs' => 'source_pdfs',
@@ -133,6 +136,7 @@ class CombinedSubmission implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'metadata' => 'setMetadata',
+        'password' => 'setPassword',
         'expired' => 'setExpired',
         'expires_at' => 'setExpiresAt',
         'source_pdfs' => 'setSourcePdfs',
@@ -151,6 +155,7 @@ class CombinedSubmission implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'metadata' => 'getMetadata',
+        'password' => 'getPassword',
         'expired' => 'getExpired',
         'expires_at' => 'getExpiresAt',
         'source_pdfs' => 'getSourcePdfs',
@@ -240,6 +245,7 @@ class CombinedSubmission implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['metadata'] = isset($data['metadata']) ? $data['metadata'] : null;
+        $this->container['password'] = isset($data['password']) ? $data['password'] : null;
         $this->container['expired'] = isset($data['expired']) ? $data['expired'] : null;
         $this->container['expires_at'] = isset($data['expires_at']) ? $data['expires_at'] : null;
         $this->container['source_pdfs'] = isset($data['source_pdfs']) ? $data['source_pdfs'] : null;
@@ -303,6 +309,30 @@ class CombinedSubmission implements ModelInterface, ArrayAccess
     public function setMetadata($metadata)
     {
         $this->container['metadata'] = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Gets password
+     *
+     * @return string|null
+     */
+    public function getPassword()
+    {
+        return $this->container['password'];
+    }
+
+    /**
+     * Sets password
+     *
+     * @param string|null $password password
+     *
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->container['password'] = $password;
 
         return $this;
     }

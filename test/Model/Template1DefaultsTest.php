@@ -1,6 +1,6 @@
 <?php
 /**
- * CombinePdfsDataTest
+ * Template1DefaultsTest
  *
  * PHP version 5
  *
@@ -30,15 +30,15 @@
 namespace DocSpring;
 
 /**
- * CombinePdfsDataTest Class Doc Comment
+ * Template1DefaultsTest Class Doc Comment
  *
  * @category    Class
- * @description CombinePdfsData
+ * @description Template1Defaults
  * @package     DocSpring
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class CombinePdfsDataTest extends \PHPUnit_Framework_TestCase
+class Template1DefaultsTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -70,51 +70,30 @@ class CombinePdfsDataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test "CombinePdfsData"
+     * Test "Template1Defaults"
      */
-    public function testCombinePdfsData()
+    public function testTemplate1Defaults()
     {
     }
 
     /**
-     * Test attribute "delete_custom_files"
+     * Test attribute "color"
      */
-    public function testPropertyDeleteCustomFiles()
+    public function testPropertyColor()
     {
     }
 
     /**
-     * Test attribute "expires_in"
+     * Test attribute "font_size"
      */
-    public function testPropertyExpiresIn()
+    public function testPropertyFontSize()
     {
     }
 
     /**
-     * Test attribute "metadata"
+     * Test attribute "typeface"
      */
-    public function testPropertyMetadata()
-    {
-    }
-
-    /**
-     * Test attribute "password"
-     */
-    public function testPropertyPassword()
-    {
-    }
-
-    /**
-     * Test attribute "source_pdfs"
-     */
-    public function testPropertySourcePdfs()
-    {
-    }
-
-    /**
-     * Test attribute "test"
-     */
-    public function testPropertyTest()
+    public function testPropertyTypeface()
     {
     }
 }

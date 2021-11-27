@@ -1,6 +1,6 @@
 <?php
 /**
- * CombinedSubmissionData
+ * ListSubmissionsResponse
  *
  * PHP version 5
  *
@@ -33,14 +33,14 @@ use \ArrayAccess;
 use \DocSpring\ObjectSerializer;
 
 /**
- * CombinedSubmissionData Class Doc Comment
+ * ListSubmissionsResponse Class Doc Comment
  *
  * @category Class
  * @package  DocSpring
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class CombinedSubmissionData implements ModelInterface, ArrayAccess
+class ListSubmissionsResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $openAPIModelName = 'combined_submission_data';
+    protected static $openAPIModelName = 'list_submissions_response';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPITypes = [
-        'expires_in' => 'int',
-        'metadata' => 'object',
-        'password' => 'string',
-        'submission_ids' => 'string[]',
-        'test' => 'bool'
+        'next_cursor' => 'string',
+        'submissions' => '\DocSpring\Model\Submission[]',
+        'limit' => 'float'
     ];
 
     /**
@@ -70,11 +68,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPIFormats = [
-        'expires_in' => null,
-        'metadata' => null,
-        'password' => null,
-        'submission_ids' => null,
-        'test' => null
+        'next_cursor' => null,
+        'submissions' => null,
+        'limit' => null
     ];
 
     /**
@@ -104,11 +100,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'expires_in' => 'expires_in',
-        'metadata' => 'metadata',
-        'password' => 'password',
-        'submission_ids' => 'submission_ids',
-        'test' => 'test'
+        'next_cursor' => 'next_cursor',
+        'submissions' => 'submissions',
+        'limit' => 'limit'
     ];
 
     /**
@@ -117,11 +111,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'expires_in' => 'setExpiresIn',
-        'metadata' => 'setMetadata',
-        'password' => 'setPassword',
-        'submission_ids' => 'setSubmissionIds',
-        'test' => 'setTest'
+        'next_cursor' => 'setNextCursor',
+        'submissions' => 'setSubmissions',
+        'limit' => 'setLimit'
     ];
 
     /**
@@ -130,11 +122,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'expires_in' => 'getExpiresIn',
-        'metadata' => 'getMetadata',
-        'password' => 'getPassword',
-        'submission_ids' => 'getSubmissionIds',
-        'test' => 'getTest'
+        'next_cursor' => 'getNextCursor',
+        'submissions' => 'getSubmissions',
+        'limit' => 'getLimit'
     ];
 
     /**
@@ -197,11 +187,9 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['expires_in'] = isset($data['expires_in']) ? $data['expires_in'] : null;
-        $this->container['metadata'] = isset($data['metadata']) ? $data['metadata'] : null;
-        $this->container['password'] = isset($data['password']) ? $data['password'] : null;
-        $this->container['submission_ids'] = isset($data['submission_ids']) ? $data['submission_ids'] : null;
-        $this->container['test'] = isset($data['test']) ? $data['test'] : null;
+        $this->container['next_cursor'] = isset($data['next_cursor']) ? $data['next_cursor'] : null;
+        $this->container['submissions'] = isset($data['submissions']) ? $data['submissions'] : null;
+        $this->container['limit'] = isset($data['limit']) ? $data['limit'] : null;
     }
 
     /**
@@ -213,9 +201,6 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['submission_ids'] === null) {
-            $invalidProperties[] = "'submission_ids' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -232,121 +217,73 @@ class CombinedSubmissionData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets expires_in
-     *
-     * @return int|null
-     */
-    public function getExpiresIn()
-    {
-        return $this->container['expires_in'];
-    }
-
-    /**
-     * Sets expires_in
-     *
-     * @param int|null $expires_in expires_in
-     *
-     * @return $this
-     */
-    public function setExpiresIn($expires_in)
-    {
-        $this->container['expires_in'] = $expires_in;
-
-        return $this;
-    }
-
-    /**
-     * Gets metadata
-     *
-     * @return object|null
-     */
-    public function getMetadata()
-    {
-        return $this->container['metadata'];
-    }
-
-    /**
-     * Sets metadata
-     *
-     * @param object|null $metadata metadata
-     *
-     * @return $this
-     */
-    public function setMetadata($metadata)
-    {
-        $this->container['metadata'] = $metadata;
-
-        return $this;
-    }
-
-    /**
-     * Gets password
+     * Gets next_cursor
      *
      * @return string|null
      */
-    public function getPassword()
+    public function getNextCursor()
     {
-        return $this->container['password'];
+        return $this->container['next_cursor'];
     }
 
     /**
-     * Sets password
+     * Sets next_cursor
      *
-     * @param string|null $password password
+     * @param string|null $next_cursor next_cursor
      *
      * @return $this
      */
-    public function setPassword($password)
+    public function setNextCursor($next_cursor)
     {
-        $this->container['password'] = $password;
+        $this->container['next_cursor'] = $next_cursor;
 
         return $this;
     }
 
     /**
-     * Gets submission_ids
+     * Gets submissions
      *
-     * @return string[]
+     * @return \DocSpring\Model\Submission[]|null
      */
-    public function getSubmissionIds()
+    public function getSubmissions()
     {
-        return $this->container['submission_ids'];
+        return $this->container['submissions'];
     }
 
     /**
-     * Sets submission_ids
+     * Sets submissions
      *
-     * @param string[] $submission_ids submission_ids
+     * @param \DocSpring\Model\Submission[]|null $submissions submissions
      *
      * @return $this
      */
-    public function setSubmissionIds($submission_ids)
+    public function setSubmissions($submissions)
     {
-        $this->container['submission_ids'] = $submission_ids;
+        $this->container['submissions'] = $submissions;
 
         return $this;
     }
 
     /**
-     * Gets test
+     * Gets limit
      *
-     * @return bool|null
+     * @return float|null
      */
-    public function getTest()
+    public function getLimit()
     {
-        return $this->container['test'];
+        return $this->container['limit'];
     }
 
     /**
-     * Sets test
+     * Sets limit
      *
-     * @param bool|null $test test
+     * @param float|null $limit limit
      *
      * @return $this
      */
-    public function setTest($test)
+    public function setLimit($limit)
     {
-        $this->container['test'] = $test;
+        $this->container['limit'] = $limit;
 
         return $this;
     }

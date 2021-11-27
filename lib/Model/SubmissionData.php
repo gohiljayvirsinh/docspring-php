@@ -63,6 +63,7 @@ class SubmissionData implements ModelInterface, ArrayAccess
         'field_overrides' => 'object',
         'html' => 'string',
         'metadata' => 'object',
+        'password' => 'string',
         'test' => 'bool'
     ];
 
@@ -78,6 +79,7 @@ class SubmissionData implements ModelInterface, ArrayAccess
         'field_overrides' => null,
         'html' => null,
         'metadata' => null,
+        'password' => null,
         'test' => null
     ];
 
@@ -114,6 +116,7 @@ class SubmissionData implements ModelInterface, ArrayAccess
         'field_overrides' => 'field_overrides',
         'html' => 'html',
         'metadata' => 'metadata',
+        'password' => 'password',
         'test' => 'test'
     ];
 
@@ -129,6 +132,7 @@ class SubmissionData implements ModelInterface, ArrayAccess
         'field_overrides' => 'setFieldOverrides',
         'html' => 'setHtml',
         'metadata' => 'setMetadata',
+        'password' => 'setPassword',
         'test' => 'setTest'
     ];
 
@@ -144,6 +148,7 @@ class SubmissionData implements ModelInterface, ArrayAccess
         'field_overrides' => 'getFieldOverrides',
         'html' => 'getHtml',
         'metadata' => 'getMetadata',
+        'password' => 'getPassword',
         'test' => 'getTest'
     ];
 
@@ -213,6 +218,7 @@ class SubmissionData implements ModelInterface, ArrayAccess
         $this->container['field_overrides'] = isset($data['field_overrides']) ? $data['field_overrides'] : null;
         $this->container['html'] = isset($data['html']) ? $data['html'] : null;
         $this->container['metadata'] = isset($data['metadata']) ? $data['metadata'] : null;
+        $this->container['password'] = isset($data['password']) ? $data['password'] : null;
         $this->container['test'] = isset($data['test']) ? $data['test'] : null;
     }
 
@@ -383,6 +389,30 @@ class SubmissionData implements ModelInterface, ArrayAccess
     public function setMetadata($metadata)
     {
         $this->container['metadata'] = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Gets password
+     *
+     * @return string|null
+     */
+    public function getPassword()
+    {
+        return $this->container['password'];
+    }
+
+    /**
+     * Sets password
+     *
+     * @param string|null $password password
+     *
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->container['password'] = $password;
 
         return $this;
     }

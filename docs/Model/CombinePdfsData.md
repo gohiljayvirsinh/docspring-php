@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **delete_custom_files** | **bool** |  | [optional] 
 **expires_in** | **int** |  | [optional] 
 **metadata** | **object** |  | [optional] 
+**password** | **string** |  | [optional] 
 **source_pdfs** | **object[]** |  | 
 **test** | **bool** |  | [optional] 
 
